@@ -3,7 +3,7 @@ require "mimeo/version"
 module Mimeo
   module ClassMethods
     def ohm_model(model, field_map)
-      cattr_accessor :ohm_model_class, :ohm_model_index
+      cattr_accessor :ohm_model_class, :field_map
 
       self.ohm_model_class = model
       self.field_map = field_map
