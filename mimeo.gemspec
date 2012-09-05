@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path('../lib/rails-ohm-model/version', __FILE__)
+require File.expand_path('../lib/mimeo/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Radamanthus Batnag"]
