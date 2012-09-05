@@ -2,10 +2,11 @@ require "mimeo/version"
 
 module Mimeo
   module ClassMethods
-    def ohm_model(model, options = {})
+    def ohm_model(model, field_map)
       cattr_accessor :ohm_model_class, :ohm_model_index
 
       self.ohm_model_class = model
+      self.field_map = field_map
 
       self.set_callback :save, :after do
         self.save_to_redis
@@ -36,9 +37,10 @@ module Mimeo
     end
 
     def populate(record)
-      self.class.accessible_attributes.to_a.reject{|a| a.blank?}.map{|a| a.to_sym}.each do |attr|
-        val = self.send(attr)
-        record.send("#{attr}=", val)
+      # self.class.accessible_attributes.to_a.reject{|a| a.blank?}.map{|a| a.to_sym}.each do |attr|
+      field_map.each do |rails_field, ohm_field|
+        val = self.send(rails_field)
+        record.send("#{ohm_field}=", val)
         record.rails_id = self.id
       end
     end
