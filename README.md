@@ -1,4 +1,4 @@
-# Rails::Ohm::Model
+# Mimeo
 
 This lets you easily call your Ohm model's save from within your Rails models after_save.
 
@@ -11,7 +11,7 @@ All accessible attributes (attr_accessible) are used to populate the Redis recor
 
 Add this line to your application's Gemfile:
 
-    gem 'rails-ohm-model'
+    gem 'mimeo'
 
 And then execute:
 
@@ -19,7 +19,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install rails-ohm-model
+    $ gem install mimeo
 
 ## Usage
 

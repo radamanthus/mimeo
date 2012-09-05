@@ -1,6 +1,6 @@
-require "rails-ohm-model/version"
+require "mimeo/version"
 
-module RailsOhmModel
+module Mimeo
   module ClassMethods
     def ohm_model(model, options = {})
       cattr_accessor :ohm_model_class, :ohm_model_index
@@ -36,5 +36,5 @@ module RailsOhmModel
   end
 end
 
-ActiveRecord::Base.extend RailsOhmModel::ClassMethods
-ActiveRecord::Base.send(:include,  RailsOhmModel::InstanceMethods)
+ActiveRecord::Base.extend Mimeo::ClassMethods
+ActiveRecord::Base.send(:include,  Mimeo::InstanceMethods)
