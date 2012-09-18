@@ -20,15 +20,13 @@ module Mimeo
 
   module InstanceMethods
     def remove_from_redis
-      redis_record = get_redis_record
-      redis_record.delete
+      ohm_instance.delete
       return true
     end
 
     def save_to_redis
-      redis_record = get_redis_record
-      populate redis_record
-      redis_record.save
+      populate ohm_instance
+      ohm_instance.save
       return true
     end
 
