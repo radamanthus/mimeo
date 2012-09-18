@@ -24,16 +24,22 @@ module Mimeo
 
   module InstanceMethods
     def remove_from_redis
-      r = ohm_instance
-      r.delete
-      return true
+      begin
+        r = ohm_instance
+        r.delete unless r.new?
+      ensure
+        return true
+      end
     end
 
     def save_to_redis
-      r = ohm_instance
-      populate r
-      r.save
-      return true
+      begin
+        r = ohm_instance
+        populate r
+        r.save
+      ensure
+        return true
+      end
     end
 
     def ohm_instance
