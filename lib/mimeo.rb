@@ -8,6 +8,10 @@ module Mimeo
       self.ohm_model_class = model
       self.field_map = options[:field_map] if options[:field_map]
 
+      self.set_callback :create, :after do
+        self.save_to_redis
+      end
+
       self.set_callback :save, :after do
         self.save_to_redis
       end
@@ -20,13 +24,15 @@ module Mimeo
 
   module InstanceMethods
     def remove_from_redis
-      ohm_instance.delete
+      r = ohm_instance
+      r.delete
       return true
     end
 
     def save_to_redis
-      populate ohm_instance
-      ohm_instance.save
+      r = ohm_instance
+      populate r
+      r.save
       return true
     end
 
