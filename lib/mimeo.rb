@@ -32,7 +32,7 @@ module Mimeo
       return true
     end
 
-    def get_redis_record
+    def ohm_instance
       ohm_model_class.find(rails_id: self.id).first || ohm_model_class.new
     end
 
