@@ -36,8 +36,8 @@ If you want to customize the field mapping:
 
     ohm_model <ModelName>,
       field_map: {
-        active_record_attr1: :ohm_model_attr1,
-        active_record_attr2: :ohm_model_attr2
+        ohm_model_attr1: :active_record_attr1,
+        ohm_model_att2: :active_record_attr2,
         ...
       }
 

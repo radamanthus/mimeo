@@ -35,8 +35,7 @@ module Mimeo
     def save_to_redis
       begin
         r = ohm_instance
-        populate r
-        r.save
+        populate(r).save
       ensure
         return true
       end
@@ -48,7 +47,7 @@ module Mimeo
 
     def populate(record)
       if field_map
-        field_map.each do |rails_field, ohm_field|
+        field_map.each do |ohm_field, rails_field|
           val = self.send(rails_field)
           record.send("#{ohm_field}=", val)
         end
@@ -59,6 +58,7 @@ module Mimeo
         end
       end
       record.rails_id = self.id
+      record
     end
   end
 end
