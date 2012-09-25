@@ -7,6 +7,7 @@ module Mimeo
 
       self.ohm_model_class = model
       self.field_map = options[:field_map] if options[:field_map]
+      self.if_block = options[:if] if options[:if]
 
       self.set_callback :create, :after do
         self.save_to_redis
@@ -26,7 +27,7 @@ module Mimeo
     def if_block_is_truthy
       if if_block
         if if_block.is_a? String
-          eval if_block
+          instance_eval if_block
         elsif if_block.is_a? Proc
           if_block.call
         end
