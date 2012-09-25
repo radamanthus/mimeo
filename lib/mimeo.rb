@@ -47,8 +47,7 @@ module Mimeo
       # save to Redis only if the :if option evaluates to true
       if if_block_is_truthy
         begin
-          r = ohm_instance
-          populate(r).save
+          populate(ohm_instance).save
         ensure
           return true
         end
