@@ -30,6 +30,8 @@ module Mimeo
         elsif if_block.is_a? Proc
           if_block.call
         end
+      else
+        true # Always true if no if_block was given
       end
     end
 
