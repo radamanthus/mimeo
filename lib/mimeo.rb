@@ -3,7 +3,7 @@ require "mimeo/version"
 module Mimeo
   module ClassMethods
     def ohm_model(model, options={})
-      cattr_accessor :ohm_model_class, :field_map
+      cattr_accessor :ohm_model_class, :field_map, :if_block
 
       self.ohm_model_class = model
       self.field_map = options[:field_map] if options[:field_map]
@@ -23,6 +23,16 @@ module Mimeo
   end
 
   module InstanceMethods
+    def if_block_is_truthy
+      if if_block
+        if if_block.is_a? String
+          eval if_block
+        elsif if_block.is_a? Proc
+          if_block.call
+        end
+      end
+    end
+
     def remove_from_redis
       begin
         r = ohm_instance
@@ -33,10 +43,16 @@ module Mimeo
     end
 
     def save_to_redis
-      begin
-        r = ohm_instance
-        populate(r).save
-      ensure
+      # If an :if option is given,
+      # save to Redis only if the :if option evaluates to true
+      if if_block_is_truthy
+        begin
+          r = ohm_instance
+          populate(r).save
+        ensure
+          return true
+        end
+      else
         return true
       end
     end
