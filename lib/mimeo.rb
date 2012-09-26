@@ -66,7 +66,11 @@ module Mimeo
     def populate(record)
       if field_map
         field_map.each do |ohm_field, rails_field|
-          val = self.send(rails_field)
+          if rails_field.is_a? Symbol
+            val = self.send(rails_field)
+          else
+            val = rails_field
+          end
           record.send("#{ohm_field}=", val)
         end
       else
